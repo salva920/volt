@@ -1,0 +1,43 @@
+.section {
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.list {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.list li {
+  padding: 1.15rem 1.25rem;
+  border-left: 3px solid var(--volt-yellow);
+  background: #fff;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.list strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+  color: var(--volt-text-dark);
+}
+
+.list span {
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+@media (min-width: 860px) {
+  .grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 4rem;
+  }
+}

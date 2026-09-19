@@ -1,0 +1,169 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.hatch {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    -22deg,
+    transparent 0 26px,
+    rgba(255, 214, 10, 0.065) 26px 27px
+  );
+  mask-image: linear-gradient(90deg, #000 0%, #000 36%, transparent 52%);
+}
+
+.visual {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(58vw, 900px);
+  z-index: 1;
+  background: #000 url('/img/hero-visual.png') left center / cover no-repeat;
+}
+
+.visualShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #000 0%, transparent 14%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, transparent 14%, transparent 84%, #000 100%);
+  pointer-events: none;
+}
+
+.wrap {
+  position: relative;
+  z-index: 4;
+  width: min(100% - 4.5rem, 1280px);
+  margin-inline: auto;
+  padding: 7.5rem 0 5rem;
+}
+
+.content {
+  max-width: 34rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.35rem, 5.6vw, 4.15rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #fff;
+  margin-bottom: 1.15rem;
+  animation: rise 0.75s ease both;
+}
+
+.lead {
+  max-width: 30rem;
+  font-size: clamp(0.98rem, 1.6vw, 1.12rem);
+  line-height: 1.55;
+  color: #c5c5c5;
+  margin-bottom: 2rem;
+  animation: rise 0.75s ease 0.08s both;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  animation: rise 0.75s ease 0.16s both;
+}
+
+.btnPrimary,
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0.8rem 1.55rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.btnPrimary {
+  background: var(--volt-yellow);
+  color: var(--volt-black);
+  border: 2px solid var(--volt-yellow);
+}
+
+.btnPrimary:hover {
+  background: #ffe566;
+  border-color: #ffe566;
+  transform: translateY(-1px);
+}
+
+.btnGhost {
+  background: transparent;
+  color: var(--volt-yellow);
+  border: 2px solid var(--volt-yellow);
+}
+
+.btnGhost:hover {
+  background: rgba(255, 214, 10, 0.1);
+  transform: translateY(-1px);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 959px) {
+  .hero {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .wrap {
+    width: min(100% - 2rem, 1280px);
+    padding: 6.5rem 0 3.5rem;
+  }
+
+  .visual {
+    width: 100%;
+    background-position: 70% center;
+  }
+
+  .visualShade {
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.78) 100%),
+      linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
+  }
+
+  .hatch {
+    mask-image: linear-gradient(180deg, #000 0%, #000 68%, transparent 100%);
+    opacity: 0.65;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btnPrimary,
+  .btnGhost {
+    width: 100%;
+  }
+}

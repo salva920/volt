@@ -1,0 +1,133 @@
+.field {
+  position: relative;
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--volt-muted);
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.pin {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--volt-yellow);
+  pointer-events: none;
+}
+
+.inputWrap input {
+  padding-left: 2.35rem;
+}
+
+.hint {
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--volt-muted);
+  pointer-events: none;
+}
+
+.list {
+  position: absolute;
+  z-index: 8;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background: #141414;
+  border: 1px solid rgba(255, 214, 10, 0.22);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  max-height: 16rem;
+  overflow: auto;
+}
+
+.option,
+.optionActive {
+  width: 100%;
+  display: grid;
+  gap: 0.15rem;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--volt-text);
+  padding: 0.65rem 0.7rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.optionActive {
+  background: rgba(255, 214, 10, 0.12);
+}
+
+.option strong,
+.optionActive strong {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.option small,
+.optionActive small {
+  color: var(--volt-muted);
+  font-size: 0.75rem;
+}
+
+.empty {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.75rem 0.85rem;
+  background: #141414;
+  border: 1px dashed rgba(255, 214, 10, 0.28);
+  border-radius: 10px;
+}
+
+.empty p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--volt-muted);
+}
+
+.empty button {
+  justify-self: start;
+  border: 0;
+  background: transparent;
+  color: var(--volt-yellow);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mapBox {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.15rem;
+}
+
+.mapBox iframe {
+  width: 100%;
+  height: 180px;
+  border: 0;
+  border-radius: 10px;
+  background: #101010;
+}
+
+.mapBox a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--volt-yellow);
+}

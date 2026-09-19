@@ -1,0 +1,73 @@
+.lead {
+  margin-bottom: 2.5rem;
+}
+
+.groups {
+  display: grid;
+  gap: 2.75rem;
+}
+
+.groupHead {
+  margin-bottom: 1.15rem;
+}
+
+.groupHead h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--volt-yellow);
+  margin-bottom: 0.35rem;
+}
+
+.groupHead p {
+  color: var(--volt-muted);
+  font-size: 0.98rem;
+  max-width: 36rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.item {
+  padding: 1.5rem 1.35rem;
+  background: var(--volt-surface);
+  border: 1px solid rgba(255, 214, 10, 0.12);
+  border-radius: var(--radius);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.item:hover {
+  border-color: rgba(255, 214, 10, 0.45);
+  transform: translateY(-3px);
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 214, 10, 0.12);
+  color: var(--volt-yellow);
+  margin-bottom: 1rem;
+}
+
+.item h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: 0.45rem;
+}
+
+.item p {
+  color: var(--volt-muted);
+  font-size: 0.95rem;
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

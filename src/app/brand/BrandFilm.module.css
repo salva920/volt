@@ -1,0 +1,625 @@
+.stage {
+  --mx: 50%;
+  --my: 45%;
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0a0a0a;
+  color: #f7f7f5;
+  cursor: default;
+}
+
+.film {
+  position: absolute;
+  inset: 0;
+  animation: filmHold 22s linear both;
+}
+
+@keyframes filmHold {
+  to {
+    opacity: 1;
+  }
+}
+
+.hatch {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    -22deg,
+    transparent 0 26px,
+    rgba(255, 214, 10, 0.05) 26px 27px
+  );
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 78%);
+  animation: hatchIn 1.2s ease both;
+}
+
+@keyframes hatchIn {
+  from {
+    opacity: 0;
+  }
+}
+
+.orb {
+  position: absolute;
+  width: 42vw;
+  height: 42vw;
+  left: 50%;
+  top: 42%;
+  translate: -50% -50%;
+  background: radial-gradient(circle, rgba(255, 214, 10, 0.22), transparent 68%);
+  filter: blur(20px);
+  pointer-events: none;
+  animation: orbPulse 22s ease-in-out both;
+}
+
+@keyframes orbPulse {
+  0%,
+  6% {
+    opacity: 0;
+    scale: 0.4;
+  }
+  12%,
+  34% {
+    opacity: 1;
+    scale: 1;
+  }
+  42%,
+  100% {
+    opacity: 0;
+    scale: 1.15;
+  }
+}
+
+.cursorGlow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  left: var(--mx);
+  top: var(--my);
+  translate: -50% -50%;
+  background: radial-gradient(circle, rgba(255, 214, 10, 0.16), transparent 70%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: glowOn 1.4s 2.8s ease both;
+}
+
+@keyframes glowOn {
+  from {
+    opacity: 0;
+  }
+}
+
+.strike {
+  position: absolute;
+  left: calc(50% - min(28vw, 280px));
+  top: 46%;
+  width: min(16vw, 150px);
+  height: min(38vh, 300px);
+  translate: -50% -50%;
+  z-index: 2;
+  filter:
+    drop-shadow(0 0 8px #ffd60a)
+    drop-shadow(0 0 28px rgba(255, 214, 10, 0.75));
+  pointer-events: none;
+}
+
+.strikePath {
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+  animation:
+    drawBolt 1.05s 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+    hideBolt 0.35s 2.25s ease both;
+}
+
+@keyframes drawBolt {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hideBolt {
+  to {
+    opacity: 0;
+  }
+}
+
+.flash {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 246, 176, 0.55), transparent 55%);
+  opacity: 0;
+  animation: flashBolt 0.55s 2.15s ease-out both;
+}
+
+@keyframes flashBolt {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.logoScene {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.logo {
+  width: min(84vw, 860px);
+  height: auto;
+  opacity: 0;
+  scale: 1;
+  filter: drop-shadow(0 0 0 transparent);
+  animation:
+    logoIn 1.15s 2.35s cubic-bezier(0.16, 1, 0.3, 1) both,
+    logoHold 0.7s 7.1s ease both;
+  transition: filter 0.3s ease;
+}
+
+.stage:hover .logo {
+  filter: drop-shadow(0 0 22px rgba(255, 214, 10, 0.55));
+}
+
+@keyframes logoIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    filter: drop-shadow(0 0 18px rgba(255, 214, 10, 0.45));
+  }
+}
+
+@keyframes logoHold {
+  to {
+    opacity: 0;
+    scale: 1;
+  }
+}
+
+.paletteScene {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.2rem, 3vh, 2.2rem);
+  width: min(100% - 4rem, 1180px);
+  margin: 0 auto;
+  padding: 4.5rem 0 3.5rem;
+  opacity: 0;
+  translate: 0 28px;
+  animation: paletteIn 1s 7.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes paletteIn {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.paletteHead,
+.paletteFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.paletteTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.paletteTitle span {
+  color: #ffd60a;
+}
+
+.paletteSub {
+  margin-top: 0.35rem;
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+.boltMark {
+  width: 22px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.85rem;
+}
+
+.swatch {
+  overflow: hidden;
+  border: 1px solid rgba(156, 163, 175, 0.28);
+  border-radius: 12px;
+  background: #111;
+  opacity: 0;
+  animation: cardPop 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.swatch:nth-child(1) {
+  animation-delay: 8s;
+}
+.swatch:nth-child(2) {
+  animation-delay: 8.18s;
+}
+.swatch:nth-child(3) {
+  animation-delay: 8.36s;
+}
+.swatch:nth-child(4) {
+  animation-delay: 8.54s;
+}
+.swatch:nth-child(5) {
+  animation-delay: 8.72s;
+}
+.swatch:nth-child(6) {
+  animation-delay: 8.9s;
+}
+
+@keyframes cardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardPop {
+  0% {
+    opacity: 0;
+    transform: translateY(56px) scale(0.78);
+    filter: blur(8px);
+  }
+  72% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.04);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.swatchFill {
+  height: clamp(88px, 16vh, 150px);
+}
+
+.swatchMeta {
+  padding: 0.85rem 0.8rem 1rem;
+}
+
+.swatchMeta strong {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.swatchMeta i {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 0.45rem 0;
+  background: #ffd60a;
+}
+
+.swatchMeta span {
+  color: #9ca3af;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.usage {
+  opacity: 0;
+  animation: cardPop 0.8s 9.3s both;
+}
+
+.usageTitle {
+  color: #ffd60a;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+
+.usageTitle::after {
+  content: '';
+  display: inline-block;
+  width: min(40%, 220px);
+  height: 1px;
+  margin-left: 0.75rem;
+  background: rgba(255, 214, 10, 0.35);
+  vertical-align: middle;
+}
+
+.usageRow {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+}
+
+.usageItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.usageItem em {
+  font-style: normal;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.usageItem b {
+  display: grid;
+  place-items: center;
+  min-height: 36px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.paletteFoot {
+  color: #f7f7f5;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: cardPop 0.75s 9.85s both;
+}
+
+.recording .hud {
+  display: none;
+}
+
+.hud {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem 1.15rem;
+}
+
+.bar {
+  flex: 1;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(247, 247, 245, 0.12);
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: #ffd60a;
+}
+
+.replay {
+  border: 1px solid rgba(255, 214, 10, 0.4);
+  border-radius: 999px;
+  background: transparent;
+  color: #ffd60a;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+}
+
+.replay:hover {
+  background: rgba(255, 214, 10, 0.1);
+}
+
+@media (max-width: 900px) {
+  .swatches,
+  .usageRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .paletteScene {
+    width: min(100% - 2rem, 1180px);
+    padding: 5rem 0 4.5rem;
+    justify-content: flex-start;
+    overflow: auto;
+  }
+
+  .logo {
+    width: min(88vw, 520px);
+  }
+}
+
+.phone .strike {
+  left: 50%;
+  width: min(28vw, 140px);
+  height: min(28vh, 260px);
+}
+
+.phone .logo {
+  width: min(92vw, 980px);
+}
+
+.phone .paletteScene {
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  padding: 3.4rem 1rem 1.6rem;
+  gap: 1rem;
+  justify-content: flex-start;
+  translate: none;
+  animation: paletteZoom 1.05s 7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes paletteZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.68) translateY(60px);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+.phone .paletteHead {
+  animation: cardPop 0.75s 7.15s both;
+  opacity: 0;
+}
+
+.phone .paletteTitle {
+  font-size: clamp(1.7rem, 8vw, 2.25rem);
+}
+
+.phone .swatches {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+  min-height: 0;
+}
+
+.phone .usageRow {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.phone .swatch {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.phone .swatch:nth-child(1) {
+  animation-delay: 7.35s;
+}
+.phone .swatch:nth-child(2) {
+  animation-delay: 7.6s;
+}
+.phone .swatch:nth-child(3) {
+  animation-delay: 7.85s;
+}
+.phone .swatch:nth-child(4) {
+  animation-delay: 8.1s;
+}
+.phone .swatch:nth-child(5) {
+  animation-delay: 8.35s;
+}
+.phone .swatch:nth-child(6) {
+  animation-delay: 8.6s;
+}
+
+.phone .swatchFill {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 118px;
+  transform-origin: top center;
+  animation: fillGrow 0.55s ease both;
+}
+
+.phone .swatch:nth-child(1) .swatchFill {
+  animation-delay: 7.5s;
+}
+.phone .swatch:nth-child(2) .swatchFill {
+  animation-delay: 7.75s;
+}
+.phone .swatch:nth-child(3) .swatchFill {
+  animation-delay: 8s;
+}
+.phone .swatch:nth-child(4) .swatchFill {
+  animation-delay: 8.25s;
+}
+.phone .swatch:nth-child(5) .swatchFill {
+  animation-delay: 8.5s;
+}
+.phone .swatch:nth-child(6) .swatchFill {
+  animation-delay: 8.75s;
+}
+
+@keyframes fillGrow {
+  from {
+    transform: scaleY(0.15);
+    filter: brightness(0.6);
+  }
+  to {
+    transform: scaleY(1);
+    filter: brightness(1);
+  }
+}
+
+.phone .swatchMeta {
+  padding: 0.75rem 0.8rem 0.85rem;
+}
+
+.phone .swatchMeta strong {
+  font-size: 0.92rem;
+}
+
+.phone .swatchMeta span {
+  font-size: 0.88rem;
+}
+
+.phone .usage {
+  animation-delay: 9s;
+}
+
+.phone .usageItem {
+  opacity: 0;
+  animation: cardPop 0.7s both;
+}
+
+.phone .usageItem:nth-child(1) {
+  animation-delay: 9.1s;
+}
+.phone .usageItem:nth-child(2) {
+  animation-delay: 9.25s;
+}
+.phone .usageItem:nth-child(3) {
+  animation-delay: 9.4s;
+}
+.phone .usageItem:nth-child(4) {
+  animation-delay: 9.55s;
+}
+.phone .usageItem:nth-child(5) {
+  animation-delay: 9.7s;
+}
+.phone .usageItem:nth-child(6) {
+  animation-delay: 9.85s;
+}
+
+.phone .usageItem b {
+  min-height: 40px;
+  font-size: 0.78rem;
+}
+
+.phone .paletteFoot {
+  animation-delay: 10.1s;
+}

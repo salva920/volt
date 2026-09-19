@@ -1,0 +1,18 @@
+/* VOLT Multiservicios — Design tokens */
+:root {
+  --volt-yellow: #ffd60a;
+  --volt-yellow-soft: #f5c518;
+  --volt-black: #0a0a0a;
+  --volt-surface: #1a1a1a;
+  --volt-text: #f7f7f5;
+  --volt-muted: #9ca3af;
+  --volt-bg-light: #fafaf8;
+  --volt-text-dark: #111111;
+  --volt-whatsapp: #25d366;
+
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  --radius: 10px;
+  --container: 1120px;
+}
