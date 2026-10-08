@@ -11,6 +11,17 @@
   gap: 1.15rem;
 }
 
+.cardReveal {
+  min-width: 0;
+}
+
+.cardRevealFeatured {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 980px;
+  margin-inline: auto;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -71,11 +82,8 @@
   }
 
   .cardFeatured {
-    grid-column: 1 / -1;
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
-    max-width: 980px;
-    margin-inline: auto;
   }
 
   .cardFeatured .frame {

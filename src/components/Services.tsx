@@ -3,6 +3,7 @@ import { FiZap, FiTool, FiSettings, FiHome, FiMaximize, FiCheckSquare } from 're
 import type { IconType } from 'react-icons'
 import { serviceGroups } from '@/data/site'
 import ServiceGalleryCarousel from './ServiceGalleryCarousel'
+import Reveal from './Reveal'
 import styles from './Services.module.css'
 
 const icons: Record<string, IconType[]> = {
@@ -21,38 +22,40 @@ export default function Services() {
         </p>
 
         <div className={styles.groups}>
-          {serviceGroups.map((group) => (
-            <div key={group.id} className={styles.group}>
-              <div className={styles.groupVisual} data-fit={group.imageFit}>
-                <Image
-                  src={group.image}
-                  alt={group.imageAlt}
-                  fill
-                  sizes="(min-width: 860px) 45vw, 100vw"
-                  className={styles.groupPhoto}
-                />
+          {serviceGroups.map((group, groupIndex) => (
+            <Reveal key={group.id} className={styles.groupReveal} delay={groupIndex * 0.12}>
+              <div className={styles.group}>
+                <div className={styles.groupVisual} data-fit={group.imageFit}>
+                  <Image
+                    src={group.image}
+                    alt={group.imageAlt}
+                    fill
+                    sizes="(min-width: 860px) 45vw, 100vw"
+                    className={styles.groupPhoto}
+                  />
+                </div>
+                <div className={styles.groupHead}>
+                  <h3>{group.title}</h3>
+                  <p>{group.lead}</p>
+                </div>
+                <ul className={styles.points}>
+                  {group.items.map((service, index) => {
+                    const Icon = (icons[group.id] ?? icons.electrico)[index]
+                    return (
+                      <li key={service.title}>
+                        <span className={styles.icon}>
+                          <Icon size={18} />
+                        </span>
+                        <div>
+                          <h4>{service.title}</h4>
+                          <p>{service.description}</p>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
               </div>
-              <div className={styles.groupHead}>
-                <h3>{group.title}</h3>
-                <p>{group.lead}</p>
-              </div>
-              <ul className={styles.points}>
-                {group.items.map((service, index) => {
-                  const Icon = (icons[group.id] ?? icons.electrico)[index]
-                  return (
-                    <li key={service.title}>
-                      <span className={styles.icon}>
-                        <Icon size={18} />
-                      </span>
-                      <div>
-                        <h4>{service.title}</h4>
-                        <p>{service.description}</p>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
+            </Reveal>
           ))}
         </div>
 

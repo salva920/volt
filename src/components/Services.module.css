@@ -12,7 +12,12 @@
   gap: 1.25rem;
 }
 
+.groupReveal {
+  height: 100%;
+}
+
 .group {
+  background: #1b1c1d;
   background: #1b1c1d;
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: var(--radius);

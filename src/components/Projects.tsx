@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { projects } from '@/data/site'
 import styles from './Projects.module.css'
+import Reveal from './Reveal'
 
 export default function Projects() {
   return (
@@ -14,28 +15,36 @@ export default function Projects() {
         </p>
 
         <div className={styles.grid}>
-          {projects.map((project) => (
-            <article
-              key={project.title}
-              className={`${styles.card} ${project.featured ? styles.cardFeatured : ''} ${
-                project.fit === 'contain' ? styles.cardContain : ''
-              }`}
-            >
-              <div className={styles.frame}>
-                <Image
-                  src={project.image}
-                  alt={project.alt}
-                  fill
-                  sizes="(min-width: 800px) 50vw, 100vw"
-                  className={styles.photo}
-                />
-              </div>
-              <div className={styles.meta}>
-                <span>{project.category}</span>
-                <h3>{project.title}</h3>
-              </div>
-            </article>
-          ))}
+          {projects.map((project, index) => {
+            const featured = Boolean(project.featured)
+            const cardClass = `${styles.card} ${featured ? styles.cardFeatured : ''} ${
+              project.fit === 'contain' ? styles.cardContain : ''
+            }`
+
+            return (
+              <Reveal
+                key={project.title}
+                className={`${styles.cardReveal} ${featured ? styles.cardRevealFeatured : ''}`}
+                delay={index * 0.08}
+              >
+                <article className={cardClass}>
+                  <div className={styles.frame}>
+                    <Image
+                      src={project.image}
+                      alt={project.alt}
+                      fill
+                      sizes="(min-width: 800px) 50vw, 100vw"
+                      className={styles.photo}
+                    />
+                  </div>
+                  <div className={styles.meta}>
+                    <span>{project.category}</span>
+                    <h3>{project.title}</h3>
+                  </div>
+                </article>
+              </Reveal>
+            )
+          })}
         </div>
       </div>
     </section>
