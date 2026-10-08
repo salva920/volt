@@ -5,10 +5,24 @@ import styles from './Contact.module.css'
 
 export default function Contact() {
   return (
-    <section id="contacto" className={`section section--light ${styles.section}`}>
-      <div className="container">
-        <p className="section__eyebrow">Contacto</p>
-        <h2 className="section__title">Hablemos de tu próximo proyecto</h2>
+    <section id="contacto" className={`section ${styles.section}`}>
+      <div className={`container ${styles.layout}`}>
+        <div className={styles.intro}>
+          <p className={`section__eyebrow ${styles.eyebrow}`}>Contacto</p>
+          <h2 className={`section__title ${styles.title}`}>Hablemos de tu próximo proyecto</h2>
+          <p className={styles.lead}>Tu proyecto merece una ejecución segura, ordenada y bien hecha.</p>
+          <a
+            className={styles.whatsappCta}
+            href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
+              'Hola VOLT, me gustaría solicitar una cotización.'
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaWhatsapp size={19} aria-hidden="true" />
+            Cotizar por WhatsApp
+          </a>
+        </div>
 
         <div className={styles.grid}>
           <a
@@ -43,9 +57,6 @@ export default function Contact() {
           </div>
         </div>
 
-        <p className="section__lead" style={{ textAlign: 'center', marginTop: '2rem' }}>
-          Tu proyecto merece una ejecución segura, ordenada y bien hecha.
-        </p>
       </div>
     </section>
   )

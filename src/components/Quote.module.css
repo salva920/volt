@@ -3,10 +3,6 @@
   gap: 2.5rem;
 }
 
-.wa {
-  margin-top: 1.5rem;
-}
-
 .form {
   display: grid;
   gap: 0.9rem;
@@ -102,6 +98,18 @@
 .ok {
   font-size: 0.9rem;
   color: var(--volt-yellow);
+}
+
+.submit {
+  gap: 0.55rem;
+}
+
+.submitHint {
+  margin-top: -0.4rem;
+  color: var(--volt-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: center;
 }
 
 @media (min-width: 900px) {

@@ -29,9 +29,21 @@
   background: #000 url('/img/hero-visual.png') left center / cover no-repeat;
 }
 
+.constructionVisual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38)),
+    url('/img/Brown%20Macro%20Coffee%20Brand%20Guidelines%20Presentation.svg') center / cover no-repeat;
+  opacity: 0;
+  animation: alternateVisual 16s ease-in-out infinite;
+}
+
 .visualShade {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
     linear-gradient(90deg, #000 0%, transparent 14%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, transparent 14%, transparent 84%, #000 100%);
@@ -124,6 +136,33 @@
   }
 }
 
+@keyframes alternateVisual {
+  0%,
+  18%,
+  72%,
+  100% {
+    opacity: 0;
+  }
+  26%,
+  64% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .title,
+  .lead,
+  .actions,
+  .constructionVisual {
+    animation: none;
+  }
+
+  .constructionVisual {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 959px) {
   .hero {
     height: auto;
@@ -140,10 +179,18 @@
     background-position: 70% center;
   }
 
+  .constructionVisual {
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
+      url('/img/Brown%20Macro%20Coffee%20Brand%20Guidelines%20Presentation.svg') center / cover no-repeat;
+    background-position: center 45%;
+    animation-duration: 8s;
+  }
+
   .visualShade {
     background:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.78) 100%),
-      linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
+      linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.32) 60%, rgba(0, 0, 0, 0.08) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, transparent 42%, rgba(0, 0, 0, 0.28) 100%);
   }
 
   .hatch {

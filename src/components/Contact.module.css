@@ -1,29 +1,83 @@
+.section {
+  background: var(--volt-bg-light);
+  color: var(--volt-text-dark);
+}
+
+.layout {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.eyebrow {
+  color: #765900;
+}
+
+.title {
+  max-width: 32rem;
+  color: var(--volt-text-dark);
+}
+
+.lead {
+  max-width: 29rem;
+  margin-top: 1rem;
+  color: #4b5563;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.whatsappCta {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.15rem;
+  border-radius: 999px;
+  background: var(--volt-yellow);
+  color: var(--volt-black);
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.whatsappCta:hover {
+  transform: translateY(-2px);
+  background: #ffe566;
+}
+
+.whatsappCta:focus-visible,
+.item:focus-visible {
+  outline: 2px solid #765900;
+  outline-offset: 4px;
+}
+
 .grid {
   display: grid;
-  gap: 1rem;
-  margin-top: 2rem;
+  align-content: center;
 }
 
 .item {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.15rem 1.2rem;
-  background: #fff;
-  border-radius: var(--radius);
-  border: 1px solid #ececec;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.14);
   color: var(--volt-text-dark);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: padding-left 0.2s ease;
+}
+
+.item:last-child {
+  border-bottom: 0;
 }
 
 a.item:hover {
-  border-color: var(--volt-yellow);
-  transform: translateY(-2px);
+  padding-left: 0.35rem;
 }
 
 .item svg {
-  color: var(--volt-yellow);
+  color: #9a7400;
   flex-shrink: 0;
+  margin-top: 0.15rem;
 }
 
 .item strong {
@@ -35,11 +89,20 @@ a.item:hover {
 .item span {
   color: #4b5563;
   font-size: 0.95rem;
+  line-height: 1.55;
   word-break: break-word;
 }
 
 @media (min-width: 800px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 0.8fr);
+    align-items: center;
+    gap: clamp(3rem, 8vw, 7rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .item {
+    gap: 0.8rem;
   }
 }

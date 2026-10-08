@@ -13,8 +13,9 @@ export default function Hero() {
       <div
         className={styles.visual}
         role="img"
-        aria-label="Faena VOLT: tablero eléctrico industrial"
+        aria-label="Instalación eléctrica y estructura metálica en obra"
       >
+        <div className={styles.constructionVisual} aria-hidden="true" />
         <div className={styles.visualShade} aria-hidden />
       </div>
 

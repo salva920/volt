@@ -9,7 +9,7 @@ import styles from './Quote.module.css'
 
 const workTypes = [
   { id: 'electrico', label: 'Eléctrico', hint: 'Instalación, montaje, CCDD, CCTV, mantención…' },
-  { id: 'construccion', label: 'Construcción', hint: 'Obra, ampliación, tabiques, terminaciones…' },
+  { id: 'construccion', label: 'Construcción', hint: 'Obras menores, Metalcon, cubiertas, terminaciones…' },
   { id: 'ambos', label: 'Ambos', hint: 'Describe el proyecto eléctrico y de construcción…' },
 ] as const
 
@@ -55,15 +55,6 @@ export default function Quote() {
             Completa el formulario y te contactamos. Elige si es eléctrico, construcción o ambos,
             e indica la dirección de la obra para estimar traslado y visita.
           </p>
-          <a
-            href={`https://wa.me/${siteConfig.whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`btn btn--whatsapp ${styles.wa}`}
-          >
-            <FaWhatsapp size={18} />
-            Escribir por WhatsApp
-          </a>
         </div>
 
         <form className={styles.form} onSubmit={onSubmit}>
@@ -106,11 +97,17 @@ export default function Quote() {
               placeholder={selectedType.hint}
             />
           </label>
-          <button type="submit" className="btn btn--primary btn--block">
-            Enviar solicitud
+          <button type="submit" className={`btn btn--primary btn--block ${styles.submit}`}>
+            <FaWhatsapp size={18} aria-hidden="true" />
+            Continuar por WhatsApp
           </button>
+          <p className={styles.submitHint}>
+            Se abrirá WhatsApp con tus datos para que revises y envíes la solicitud.
+          </p>
           {sent && (
-            <p className={styles.ok}>Se abrirá WhatsApp con tu mensaje listo para enviar.</p>
+            <p className={styles.ok} role="status">
+              WhatsApp se abrió con tu solicitud lista para revisar y enviar.
+            </p>
           )}
         </form>
       </div>
