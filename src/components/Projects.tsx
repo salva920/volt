@@ -26,11 +26,7 @@ export default function Projects() {
                   src={project.image}
                   alt={project.alt}
                   fill
-                  sizes={
-                    project.featured
-                      ? '(min-width: 800px) 100vw, 100vw'
-                      : '(min-width: 800px) 50vw, 100vw'
-                  }
+                  sizes="(min-width: 800px) 50vw, 100vw"
                   className={styles.photo}
                 />
               </div>

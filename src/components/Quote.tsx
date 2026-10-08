@@ -46,7 +46,7 @@ export default function Quote() {
   }
 
   return (
-    <section id="cotizacion" className="section">
+    <section id="cotizacion" className={`section ${styles.section}`}>
       <div className={`container ${styles.wrap}`}>
         <div>
           <p className="section__eyebrow">Cotización</p>

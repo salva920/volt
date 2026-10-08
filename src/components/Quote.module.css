@@ -1,3 +1,7 @@
+.section {
+  background: var(--volt-black);
+}
+
 .wrap {
   display: grid;
   gap: 2.5rem;
@@ -37,6 +41,12 @@
   border-color: var(--volt-yellow);
 }
 
+.form input:not([type='hidden']):focus-visible,
+.form textarea:focus-visible {
+  outline: 2px solid var(--volt-yellow);
+  outline-offset: 2px;
+}
+
 .workType {
   border: 0;
   padding: 0;
@@ -74,6 +84,12 @@
   font-weight: 700;
   cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.chip:focus-within,
+.chipOn:focus-within {
+  outline: 2px solid var(--volt-yellow);
+  outline-offset: 2px;
 }
 
 .chip input,
