@@ -32,6 +32,7 @@ export default function Projects() {
             slides={projectSlides}
             ariaLabel="Galería de proyectos ejecutados"
             size="large"
+            showArrows={false}
           />
         </div>
       </div>

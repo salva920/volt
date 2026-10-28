@@ -89,6 +89,10 @@
   margin-top: 0.85rem;
 }
 
+.controls[data-arrows='false'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .arrow {
   display: grid;
   width: 44px;

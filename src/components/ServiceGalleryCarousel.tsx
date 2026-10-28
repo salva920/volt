@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import styles from './ServiceGalleryCarousel.module.css'
@@ -41,13 +41,16 @@ export default function ServiceGalleryCarousel({
   slides = defaultSlides,
   ariaLabel = 'Galería de trabajos',
   size = 'default',
+  showArrows = true,
 }: {
   slides?: Slide[]
   ariaLabel?: string
   size?: 'default' | 'large'
+  showArrows?: boolean
 }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const swipeStart = useRef<{ x: number; y: number } | null>(null)
 
   useEffect(() => {
     if (!slides.length) return
@@ -68,6 +71,24 @@ export default function ServiceGalleryCarousel({
   const next = () => goTo(activeIndex + 1)
   const prev = () => goTo(activeIndex - 1)
 
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === 'touch') {
+      swipeStart.current = { x: event.clientX, y: event.clientY }
+    }
+  }
+
+  const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    const start = swipeStart.current
+    swipeStart.current = null
+    if (!start) return
+
+    const deltaX = event.clientX - start.x
+    const deltaY = event.clientY - start.y
+    if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return
+
+    goTo(activeIndex + (deltaX < 0 ? 1 : -1))
+  }
+
   if (!slides.length) return null
 
   return (
@@ -86,7 +107,14 @@ export default function ServiceGalleryCarousel({
         }
       }}
     >
-      <div className={styles.viewport}>
+      <div
+        className={styles.viewport}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={() => {
+          swipeStart.current = null
+        }}
+      >
         <div className={styles.track} style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
           {slides.map((slide, index) => (
             <figure
@@ -112,10 +140,12 @@ export default function ServiceGalleryCarousel({
         </div>
       </div>
 
-      <div className={styles.controls}>
-        <button type="button" className={styles.arrow} aria-label="Proyecto anterior" onClick={prev}>
-          <FiChevronLeft size={22} />
-        </button>
+      <div className={styles.controls} data-arrows={showArrows}>
+        {showArrows && (
+          <button type="button" className={styles.arrow} aria-label="Diapositiva anterior" onClick={prev}>
+            <FiChevronLeft size={22} />
+          </button>
+        )}
 
         <div className={styles.dots} aria-label="Selector de proyectos">
           {slides.map((slide, index) => (
@@ -130,9 +160,11 @@ export default function ServiceGalleryCarousel({
           ))}
         </div>
 
-        <button type="button" className={styles.arrow} aria-label="Siguiente proyecto" onClick={next}>
-          <FiChevronRight size={22} />
-        </button>
+        {showArrows && (
+          <button type="button" className={styles.arrow} aria-label="Siguiente diapositiva" onClick={next}>
+            <FiChevronRight size={22} />
+          </button>
+        )}
       </div>
     </div>
   )
