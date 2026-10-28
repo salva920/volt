@@ -1,9 +1,22 @@
-import Image from 'next/image'
 import { projects } from '@/data/site'
 import styles from './Projects.module.css'
-import Reveal from './Reveal'
+import ServiceGalleryCarousel from './ServiceGalleryCarousel'
 
 export default function Projects() {
+  const electricalProjects = projects.filter((project) => project.category === 'Eléctrico')
+  const constructionProjects = projects.filter((project) => project.category === 'Construcción')
+  const mixedProjects = electricalProjects.flatMap((project, index) => [
+    project,
+    ...(constructionProjects[index] ? [constructionProjects[index]] : []),
+  ])
+  const projectSlides = mixedProjects.map((project) => ({
+    image: project.image,
+    alt: project.alt,
+    title: project.title,
+    fit: project.fit,
+    category: project.category,
+  }))
+
   return (
     <section id="proyectos" className={`section section--light ${styles.section}`}>
       <div className="container">
@@ -14,37 +27,12 @@ export default function Projects() {
           de orden y seguridad en cada proyecto.
         </p>
 
-        <div className={styles.grid}>
-          {projects.map((project, index) => {
-            const featured = Boolean(project.featured)
-            const cardClass = `${styles.card} ${featured ? styles.cardFeatured : ''} ${
-              project.fit === 'contain' ? styles.cardContain : ''
-            }`
-
-            return (
-              <Reveal
-                key={project.title}
-                className={`${styles.cardReveal} ${featured ? styles.cardRevealFeatured : ''}`}
-                delay={index * 0.08}
-              >
-                <article className={cardClass}>
-                  <div className={styles.frame}>
-                    <Image
-                      src={project.image}
-                      alt={project.alt}
-                      fill
-                      sizes="(min-width: 800px) 50vw, 100vw"
-                      className={styles.photo}
-                    />
-                  </div>
-                  <div className={styles.meta}>
-                    <span>{project.category}</span>
-                    <h3>{project.title}</h3>
-                  </div>
-                </article>
-              </Reveal>
-            )
-          })}
+        <div className={styles.carouselWrap}>
+          <ServiceGalleryCarousel
+            slides={projectSlides}
+            ariaLabel="Galería de proyectos ejecutados"
+            size="large"
+          />
         </div>
       </div>
     </section>

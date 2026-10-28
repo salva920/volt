@@ -2,9 +2,18 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import styles from './ServiceGalleryCarousel.module.css'
 
-const slides = [
+type Slide = {
+  image: string
+  alt: string
+  title: string
+  fit?: 'contain' | 'cover'
+  category?: string
+}
+
+const defaultSlides: Slide[] = [
   {
     image: '/img/fachada.png',
     alt: 'Fachada con revestimiento exterior decorativo e iluminación LED integrada',
@@ -28,11 +37,20 @@ const slides = [
   },
 ]
 
-export default function ServiceGalleryCarousel() {
+export default function ServiceGalleryCarousel({
+  slides = defaultSlides,
+  ariaLabel = 'Galería de trabajos',
+  size = 'default',
+}: {
+  slides?: Slide[]
+  ariaLabel?: string
+  size?: 'default' | 'large'
+}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
+    if (!slides.length) return
     if (isPaused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const timer = window.setInterval(() => {
@@ -40,13 +58,24 @@ export default function ServiceGalleryCarousel() {
     }, 5000)
 
     return () => window.clearInterval(timer)
-  }, [isPaused])
+  }, [isPaused, slides.length])
+
+  const goTo = (index: number) => {
+    if (!slides.length) return
+    setActiveIndex((index + slides.length) % slides.length)
+  }
+
+  const next = () => goTo(activeIndex + 1)
+  const prev = () => goTo(activeIndex - 1)
+
+  if (!slides.length) return null
 
   return (
     <div
       className={styles.carousel}
+      data-size={size}
       role="region"
-      aria-label="Galería de revestimientos y terminaciones"
+      aria-label={ariaLabel}
       aria-roledescription="carrusel"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -62,9 +91,9 @@ export default function ServiceGalleryCarousel() {
           {slides.map((slide, index) => (
             <figure
               className={styles.slide}
-              key={slide.image}
+              key={`${slide.image}-${index}`}
               aria-hidden={index !== activeIndex}
-              data-fit={slide.fit}
+              data-fit={slide.fit ?? 'cover'}
             >
               <Image
                 src={slide.image}
@@ -75,11 +104,35 @@ export default function ServiceGalleryCarousel() {
                 priority={index === 0}
               />
               <figcaption className={styles.caption}>
-                {slide.title}
+                {slide.category && <span className={styles.category}>{slide.category}</span>}
+                <span>{slide.title}</span>
               </figcaption>
             </figure>
           ))}
         </div>
+      </div>
+
+      <div className={styles.controls}>
+        <button type="button" className={styles.arrow} aria-label="Proyecto anterior" onClick={prev}>
+          <FiChevronLeft size={22} />
+        </button>
+
+        <div className={styles.dots} aria-label="Selector de proyectos">
+          {slides.map((slide, index) => (
+            <button
+              key={`${slide.image}-dot-${index}`}
+              type="button"
+              className={styles.dot}
+              aria-label={`Ir al proyecto ${index + 1}`}
+              aria-current={activeIndex === index ? 'true' : 'false'}
+              onClick={() => goTo(index)}
+            />
+          ))}
+        </div>
+
+        <button type="button" className={styles.arrow} aria-label="Siguiente proyecto" onClick={next}>
+          <FiChevronRight size={22} />
+        </button>
       </div>
     </div>
   )
