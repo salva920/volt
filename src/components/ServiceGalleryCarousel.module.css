@@ -19,8 +19,8 @@
 }
 
 .carousel[data-size='large'] .viewport {
-  height: clamp(320px, 78vw, 460px);
-  aspect-ratio: auto;
+  height: auto;
+  aspect-ratio: var(--slide-aspect-ratio, 4 / 3);
 }
 
 .track {
@@ -93,6 +93,10 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
+.controls[data-arrows='false'][data-dots='false'] {
+  display: none;
+}
+
 .arrow {
   display: grid;
   width: 44px;
@@ -155,6 +159,7 @@
 @media (min-width: 700px) {
   .carousel[data-size='large'] .viewport {
     height: clamp(460px, 52vw, 640px);
+    aspect-ratio: auto;
   }
 }
 

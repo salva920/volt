@@ -37,6 +37,7 @@ export default function Projects() {
             ariaLabel="Galería de proyectos ejecutados"
             size="large"
             showArrows={false}
+            showDots={false}
           />
         </div>
       </div>

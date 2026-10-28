@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import type { CSSProperties } from 'react'
 import styles from './ServiceGalleryCarousel.module.css'
 
 type Slide = {
@@ -42,14 +43,17 @@ export default function ServiceGalleryCarousel({
   ariaLabel = 'Galería de trabajos',
   size = 'default',
   showArrows = true,
+  showDots = true,
 }: {
   slides?: Slide[]
   ariaLabel?: string
   size?: 'default' | 'large'
   showArrows?: boolean
+  showDots?: boolean
 }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [slideRatios, setSlideRatios] = useState<Record<number, number>>({})
   const swipeStart = useRef<{ x: number; y: number } | null>(null)
 
   useEffect(() => {
@@ -109,6 +113,11 @@ export default function ServiceGalleryCarousel({
     >
       <div
         className={styles.viewport}
+        style={
+          {
+            '--slide-aspect-ratio': slideRatios[activeIndex] ?? 4 / 3,
+          } as CSSProperties
+        }
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerCancel={() => {
@@ -127,9 +136,20 @@ export default function ServiceGalleryCarousel({
                 src={slide.image}
                 alt={slide.alt}
                 fill
-                sizes="(min-width: 800px) 42vw, 100vw"
+                sizes={size === 'large' ? '(min-width: 1200px) 1180px, 100vw' : '(min-width: 800px) 42vw, 100vw'}
+                quality={size === 'large' ? 90 : undefined}
                 className={styles.photo}
                 priority={index === 0}
+                onLoad={(event) => {
+                  if (size !== 'large') return
+                  const { naturalWidth, naturalHeight } = event.currentTarget
+                  if (naturalWidth && naturalHeight) {
+                    setSlideRatios((current) => ({
+                      ...current,
+                      [index]: naturalWidth / naturalHeight,
+                    }))
+                  }
+                }}
               />
               <figcaption className={styles.caption}>
                 {slide.category && <span className={styles.category}>{slide.category}</span>}
@@ -140,25 +160,28 @@ export default function ServiceGalleryCarousel({
         </div>
       </div>
 
-      <div className={styles.controls} data-arrows={showArrows}>
+      {(showArrows || showDots) && (
+      <div className={styles.controls} data-arrows={showArrows} data-dots={showDots}>
         {showArrows && (
           <button type="button" className={styles.arrow} aria-label="Diapositiva anterior" onClick={prev}>
             <FiChevronLeft size={22} />
           </button>
         )}
 
-        <div className={styles.dots} aria-label="Selector de proyectos">
-          {slides.map((slide, index) => (
-            <button
-              key={`${slide.image}-dot-${index}`}
-              type="button"
-              className={styles.dot}
-              aria-label={`Ir al proyecto ${index + 1}`}
-              aria-current={activeIndex === index ? 'true' : 'false'}
-              onClick={() => goTo(index)}
-            />
-          ))}
-        </div>
+        {showDots && (
+          <div className={styles.dots} aria-label="Selector de proyectos">
+            {slides.map((slide, index) => (
+              <button
+                key={`${slide.image}-dot-${index}`}
+                type="button"
+                className={styles.dot}
+                aria-label={`Ir al proyecto ${index + 1}`}
+                aria-current={activeIndex === index ? 'true' : 'false'}
+                onClick={() => goTo(index)}
+              />
+            ))}
+          </div>
+        )}
 
         {showArrows && (
           <button type="button" className={styles.arrow} aria-label="Siguiente diapositiva" onClick={next}>
@@ -166,6 +189,7 @@ export default function ServiceGalleryCarousel({
           </button>
         )}
       </div>
+      )}
     </div>
   )
 }
